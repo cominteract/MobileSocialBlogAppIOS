@@ -10,12 +10,12 @@ import UIKit
 
 /// DiscoverViewController as DiscoverView to be updated by the presenter after an implementation, BaseViewController for common methods and properties if ever (extensions etc)
 
-class DiscoverViewController : BaseViewController, DiscoverView, UITableViewDelegate, UITableViewDataSource {
+class DiscoverViewController : BaseTabComponentViewController, DiscoverView, UITableViewDelegate, UITableViewDataSource {
     
     
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 90
+        return 64
     }
     
     @IBOutlet weak var discoverTableView: UITableView!
@@ -180,6 +180,7 @@ class DiscoverViewController : BaseViewController, DiscoverView, UITableViewDele
     }
 
     override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         if !isLoading, let refreshed = Config.getRefreshFeed(), !refreshed{
             presenter.retrieveAll()
             isLoading = true

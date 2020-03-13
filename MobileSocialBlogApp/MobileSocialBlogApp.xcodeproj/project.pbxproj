@@ -3,11 +3,12 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		10B7DE8D7668BC0444EB9348 /* Pods_MobileSocialBlogAppUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0DD9DD3961F8D401E13480C8 /* Pods_MobileSocialBlogAppUITests.framework */; };
+		580DCA20241BD3F400E03352 /* BaseTabComponentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 580DCA1F241BD3F400E03352 /* BaseTabComponentViewController.swift */; };
 		581CF8DE23937EDE00FF2CB0 /* ChatMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 581CF8DD23937EDE00FF2CB0 /* ChatMessages.swift */; };
 		581CF8E42393B6C100FF2CB0 /* ChatSessionInjector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 581CF8E02393B6C100FF2CB0 /* ChatSessionInjector.swift */; };
 		581CF8E52393B6C100FF2CB0 /* ChatSessionPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 581CF8E12393B6C100FF2CB0 /* ChatSessionPresenter.swift */; };
@@ -139,8 +140,10 @@
 /* Begin PBXFileReference section */
 		02576B11C97D1851F7ABE790 /* Pods-MobileSocialBlogAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MobileSocialBlogAppTests.debug.xcconfig"; path = "Target Support Files/Pods-MobileSocialBlogAppTests/Pods-MobileSocialBlogAppTests.debug.xcconfig"; sourceTree = "<group>"; };
 		0DD9DD3961F8D401E13480C8 /* Pods_MobileSocialBlogAppUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MobileSocialBlogAppUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		157216D2839B8A6C765AA134 /* Pods-MobileSocialBlogAppTests.mock.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MobileSocialBlogAppTests.mock.xcconfig"; path = "Target Support Files/Pods-MobileSocialBlogAppTests/Pods-MobileSocialBlogAppTests.mock.xcconfig"; sourceTree = "<group>"; };
 		27BB95A55F5E0B45316F57FF /* Pods-MobileSocialBlogAppUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MobileSocialBlogAppUITests.debug.xcconfig"; path = "Target Support Files/Pods-MobileSocialBlogAppUITests/Pods-MobileSocialBlogAppUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		3E9B05030B84EDCE44331CAE /* Pods-MobileSocialBlogAppUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MobileSocialBlogAppUITests.release.xcconfig"; path = "Target Support Files/Pods-MobileSocialBlogAppUITests/Pods-MobileSocialBlogAppUITests.release.xcconfig"; sourceTree = "<group>"; };
+		580DCA1F241BD3F400E03352 /* BaseTabComponentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTabComponentViewController.swift; sourceTree = "<group>"; };
 		581CF8DD23937EDE00FF2CB0 /* ChatMessages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessages.swift; sourceTree = "<group>"; };
 		581CF8E02393B6C100FF2CB0 /* ChatSessionInjector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatSessionInjector.swift; sourceTree = "<group>"; };
 		581CF8E12393B6C100FF2CB0 /* ChatSessionPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatSessionPresenter.swift; sourceTree = "<group>"; };
@@ -236,9 +239,14 @@
 		58F24422238BE56900DC6B44 /* Users.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Users.swift; sourceTree = "<group>"; };
 		655535FB48A4E10D154CB06D /* Pods_MobileSocialBlogApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MobileSocialBlogApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		802AE601CC4448DFDE14C5A2 /* Pods-MobileSocialBlogAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MobileSocialBlogAppTests.release.xcconfig"; path = "Target Support Files/Pods-MobileSocialBlogAppTests/Pods-MobileSocialBlogAppTests.release.xcconfig"; sourceTree = "<group>"; };
+		8580CAADAB1B509FE13336FD /* Pods-MobileSocialBlogApp.mock.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MobileSocialBlogApp.mock.xcconfig"; path = "Target Support Files/Pods-MobileSocialBlogApp/Pods-MobileSocialBlogApp.mock.xcconfig"; sourceTree = "<group>"; };
+		87300A1F395800DA3D21FFEE /* Pods-MobileSocialBlogAppTests.dev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MobileSocialBlogAppTests.dev.xcconfig"; path = "Target Support Files/Pods-MobileSocialBlogAppTests/Pods-MobileSocialBlogAppTests.dev.xcconfig"; sourceTree = "<group>"; };
 		912513F655C9A3156738B5FC /* Pods_MobileSocialBlogAppTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MobileSocialBlogAppTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B4487943D4A09FD492126D29 /* Pods-MobileSocialBlogApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MobileSocialBlogApp.release.xcconfig"; path = "Target Support Files/Pods-MobileSocialBlogApp/Pods-MobileSocialBlogApp.release.xcconfig"; sourceTree = "<group>"; };
+		CF40CFBAC5137553F3527B11 /* Pods-MobileSocialBlogAppUITests.mock.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MobileSocialBlogAppUITests.mock.xcconfig"; path = "Target Support Files/Pods-MobileSocialBlogAppUITests/Pods-MobileSocialBlogAppUITests.mock.xcconfig"; sourceTree = "<group>"; };
 		D9EAD902699E3393E66BA9AF /* Pods-MobileSocialBlogApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MobileSocialBlogApp.debug.xcconfig"; path = "Target Support Files/Pods-MobileSocialBlogApp/Pods-MobileSocialBlogApp.debug.xcconfig"; sourceTree = "<group>"; };
+		F26E75E80E64F012B64B0997 /* Pods-MobileSocialBlogAppUITests.dev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MobileSocialBlogAppUITests.dev.xcconfig"; path = "Target Support Files/Pods-MobileSocialBlogAppUITests/Pods-MobileSocialBlogAppUITests.dev.xcconfig"; sourceTree = "<group>"; };
+		FF1568322FEB14B89E5C1E9A /* Pods-MobileSocialBlogApp.dev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MobileSocialBlogApp.dev.xcconfig"; path = "Target Support Files/Pods-MobileSocialBlogApp/Pods-MobileSocialBlogApp.dev.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -416,6 +424,7 @@
 				58D965E9238BE7FE00338B0F /* BaseViewController.swift */,
 				58D965EA238BE7FE00338B0F /* BaseNavigationViewController.swift */,
 				58D965EB238BE7FE00338B0F /* UINavigation.swift */,
+				580DCA1F241BD3F400E03352 /* BaseTabComponentViewController.swift */,
 			);
 			path = MVPBase;
 			sourceTree = "<group>";
@@ -565,6 +574,12 @@
 				802AE601CC4448DFDE14C5A2 /* Pods-MobileSocialBlogAppTests.release.xcconfig */,
 				27BB95A55F5E0B45316F57FF /* Pods-MobileSocialBlogAppUITests.debug.xcconfig */,
 				3E9B05030B84EDCE44331CAE /* Pods-MobileSocialBlogAppUITests.release.xcconfig */,
+				8580CAADAB1B509FE13336FD /* Pods-MobileSocialBlogApp.mock.xcconfig */,
+				FF1568322FEB14B89E5C1E9A /* Pods-MobileSocialBlogApp.dev.xcconfig */,
+				157216D2839B8A6C765AA134 /* Pods-MobileSocialBlogAppTests.mock.xcconfig */,
+				87300A1F395800DA3D21FFEE /* Pods-MobileSocialBlogAppTests.dev.xcconfig */,
+				CF40CFBAC5137553F3527B11 /* Pods-MobileSocialBlogAppUITests.mock.xcconfig */,
+				F26E75E80E64F012B64B0997 /* Pods-MobileSocialBlogAppUITests.dev.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -736,22 +751,11 @@
 			files = (
 			);
 			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-MobileSocialBlogApp/Pods-MobileSocialBlogApp-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
-				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
-				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
-				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
+				"${PODS_ROOT}/Target Support Files/Pods-MobileSocialBlogApp/Pods-MobileSocialBlogApp-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-			);
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+				"${PODS_ROOT}/Target Support Files/Pods-MobileSocialBlogApp/Pods-MobileSocialBlogApp-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -868,6 +872,7 @@
 				58F243F2238BD8C700DC6B44 /* AppDelegate.swift in Sources */,
 				588BDE9823924F0200DCD90E /* ChatServices.swift in Sources */,
 				58B6B856238EA2120028CB5C /* SignupInjector.swift in Sources */,
+				580DCA20241BD3F400E03352 /* BaseTabComponentViewController.swift in Sources */,
 				581CF8E72393B6C100FF2CB0 /* ChatSessionViewController.swift in Sources */,
 				587A64342395118D004D7800 /* ChatSessionReplyTableViewCell.swift in Sources */,
 				58D96616238BED4600338B0F /* SampleViewController.swift in Sources */,
@@ -957,7 +962,7 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		5855F97123B741790096F788 /* Mock */ = {
+		580DCA17241BA45400E03352 /* Dev */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -999,7 +1004,7 @@
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
+					"DEV=1",
 					"$(inherited)",
 				);
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -1012,16 +1017,16 @@
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				OTHER_SWIFT_FLAGS = "-D MOCK";
+				OTHER_SWIFT_FLAGS = "-D DEV";
 				SDKROOT = iphoneos;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEV;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
-			name = Mock;
+			name = Dev;
 		};
-		5855F97223B741790096F788 /* Mock */ = {
+		580DCA18241BA45400E03352 /* Dev */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D9EAD902699E3393E66BA9AF /* Pods-MobileSocialBlogApp.debug.xcconfig */;
+			baseConfigurationReference = FF1568322FEB14B89E5C1E9A /* Pods-MobileSocialBlogApp.dev.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -1036,15 +1041,143 @@
 				"OTHER_SWIFT_FLAGS[arch=*]" = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ainsigne.MobileSocialBlogApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				"SWIFT_ACTIVE_COMPILATION_CONDITIONS[arch=*]" = DEBUG;
+				"SWIFT_ACTIVE_COMPILATION_CONDITIONS[arch=*]" = DEV;
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Dev;
+		};
+		580DCA19241BA45400E03352 /* Dev */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 87300A1F395800DA3D21FFEE /* Pods-MobileSocialBlogAppTests.dev.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = XA24T5L447;
+				INFOPLIST_FILE = MobileSocialBlogAppTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.ainsigne.MobileSocialBlogAppTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MobileSocialBlogApp.app/MobileSocialBlogApp";
+			};
+			name = Dev;
+		};
+		580DCA1A241BA45400E03352 /* Dev */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F26E75E80E64F012B64B0997 /* Pods-MobileSocialBlogAppUITests.dev.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = XA24T5L447;
+				INFOPLIST_FILE = MobileSocialBlogAppUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.ainsigne.MobileSocialBlogAppUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = MobileSocialBlogApp;
+			};
+			name = Dev;
+		};
+		580DCA1B241BA45B00E03352 /* Mock */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"MOCK=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_SWIFT_FLAGS = "-D MOCK";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = MOCK;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Mock;
+		};
+		580DCA1C241BA45B00E03352 /* Mock */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8580CAADAB1B509FE13336FD /* Pods-MobileSocialBlogApp.mock.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = XA24T5L447;
+				INFOPLIST_FILE = MobileSocialBlogApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				OTHER_SWIFT_FLAGS = "";
+				"OTHER_SWIFT_FLAGS[arch=*]" = "";
+				PRODUCT_BUNDLE_IDENTIFIER = com.ainsigne.MobileSocialBlogApp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				"SWIFT_ACTIVE_COMPILATION_CONDITIONS[arch=*]" = MOCK;
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Mock;
 		};
-		5855F97323B741790096F788 /* Mock */ = {
+		580DCA1D241BA45B00E03352 /* Mock */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 02576B11C97D1851F7ABE790 /* Pods-MobileSocialBlogAppTests.debug.xcconfig */;
+			baseConfigurationReference = 157216D2839B8A6C765AA134 /* Pods-MobileSocialBlogAppTests.mock.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -1064,9 +1197,9 @@
 			};
 			name = Mock;
 		};
-		5855F97423B741790096F788 /* Mock */ = {
+		580DCA1E241BA45B00E03352 /* Mock */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 27BB95A55F5E0B45316F57FF /* Pods-MobileSocialBlogAppUITests.debug.xcconfig */;
+			baseConfigurationReference = CF40CFBAC5137553F3527B11 /* Pods-MobileSocialBlogAppUITests.mock.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -1339,7 +1472,8 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				58F24414238BD8C800DC6B44 /* Debug */,
-				5855F97123B741790096F788 /* Mock */,
+				580DCA1B241BA45B00E03352 /* Mock */,
+				580DCA17241BA45400E03352 /* Dev */,
 				58F24415238BD8C800DC6B44 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -1349,7 +1483,8 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				58F24417238BD8C800DC6B44 /* Debug */,
-				5855F97223B741790096F788 /* Mock */,
+				580DCA1C241BA45B00E03352 /* Mock */,
+				580DCA18241BA45400E03352 /* Dev */,
 				58F24418238BD8C800DC6B44 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -1359,7 +1494,8 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				58F2441A238BD8C800DC6B44 /* Debug */,
-				5855F97323B741790096F788 /* Mock */,
+				580DCA1D241BA45B00E03352 /* Mock */,
+				580DCA19241BA45400E03352 /* Dev */,
 				58F2441B238BD8C800DC6B44 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -1369,7 +1505,8 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				58F2441D238BD8C800DC6B44 /* Debug */,
-				5855F97423B741790096F788 /* Mock */,
+				580DCA1E241BA45B00E03352 /* Mock */,
+				580DCA1A241BA45400E03352 /* Dev */,
 				58F2441E238BD8C800DC6B44 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;

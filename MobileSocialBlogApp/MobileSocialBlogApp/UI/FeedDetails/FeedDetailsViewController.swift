@@ -10,7 +10,7 @@ import UIKit
 
 /// FeedDetailsViewController as FeedDetailsView to be updated by the presenter after an implementation, BaseViewController for common methods and properties if ever (extensions etc)
 
-class FeedDetailsViewController : BaseViewController, FeedDetailsView, UITableViewDelegate, UITableViewDataSource {
+class FeedDetailsViewController : BaseTabComponentViewController, FeedDetailsView, UITableViewDelegate, UITableViewDataSource {
     
     /// presenter as FeedDetailsPresenter injected automatically to call implementations
     var presenter: FeedDetailsPresenter!
@@ -53,9 +53,9 @@ class FeedDetailsViewController : BaseViewController, FeedDetailsView, UITableVi
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.row == 0{
-            return 400
+            return 325
         }
-        return 160
+        return 100
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -89,8 +89,13 @@ class FeedDetailsViewController : BaseViewController, FeedDetailsView, UITableVi
                 cell.commentUserLabel.text = username
                 cell.commentUserImageView.downloadedFrom(link: link)
             }
+            
+            
             cell.commentTimestampLabel.text = comments?[indexPath.row - 1].timestamp?.toDate()?.fromNow()
-            cell.commentReplyToLabel.text = comments?[indexPath.row - 1].replyTo
+            if let author = comments?.filter({ $0.id == comments?[indexPath.row - 1].replyTo }).first?.author{
+                cell.commentReplyToLabel.text = "@\(author)"
+            }
+            
             
             
             cell.commentUserLabel.addTapGesture(selector: #selector(FeedDetailsViewController.viewProfile(_:)), target: self)
@@ -155,6 +160,8 @@ class FeedDetailsViewController : BaseViewController, FeedDetailsView, UITableVi
 
     
     override func viewDidAppear(_ animated: Bool) {
+        isBackNeeded = true
+        super.viewDidAppear(animated)
         self.navigationController?.navigationBar.isHidden = false
     }
     

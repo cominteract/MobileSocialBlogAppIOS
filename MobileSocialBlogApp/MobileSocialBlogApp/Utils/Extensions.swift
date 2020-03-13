@@ -110,20 +110,32 @@ extension Date
     func fromNow() -> String
     {
         let now = Date()
-        let components = calendar.dateComponents([.hour,.day,.year], from: self, to: now)
-        if let h = components.hour, let d = components.day, let y = components.year
+        let components = calendar.dateComponents([.hour,.day,.year, .month, .minute], from: self, to: now)
+        if let h = components.hour, let d = components.day, let y = components.year, let mo = components.month, let min = components.minute
         {
-            if h < 24
+            if y > 0
             {
-                return "\(h)h"
+                return "\(y) y"
             }
-            else if d < 365
+            else if mo > 1 && mo < 12
             {
-                return "\(d)d"
+                return "\(mo) mos"
+            }
+            else if mo == 1 && d >= 30
+            {
+                return "\(mo) mo"
+            }
+            else if d > 0
+            {
+                return "\(d) d"
+            }
+            else if h > 0
+            {
+                return "\(h) h"
             }
             else
             {
-                return "\(y)y"
+                return "\(min) m"
             }
         }
         return ""
@@ -367,11 +379,11 @@ extension UIImageView {
             DispatchQueue.main.sync() { () -> Void in
                 
                 self.image = nil
+                self.backgroundColor = UIColor.lightGray
                 self.contentMode = mode
                 self.layer.masksToBounds = true
                 self.image = image
-                
-            }
+              }
             }.resume()
     }
     

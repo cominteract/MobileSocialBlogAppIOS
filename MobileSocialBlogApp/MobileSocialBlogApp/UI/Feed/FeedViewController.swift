@@ -10,7 +10,7 @@ import UIKit
 
 /// FeedViewController as FeedView to be updated by the presenter after an implementation, BaseViewController for common methods and properties if ever (extensions etc)
 
-class FeedViewController : BaseViewController, FeedView, UITableViewDelegate, UITableViewDataSource {
+class FeedViewController : BaseTabComponentViewController, FeedView, UITableViewDelegate, UITableViewDataSource {
     func uploadedImageUpdateView() {
         if let posts = posts, let url = selectedPhoto{
             posts.url = url
@@ -28,14 +28,14 @@ class FeedViewController : BaseViewController, FeedView, UITableViewDelegate, UI
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 400
+        return 325
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "FeedTableViewCell") as! FeedTableViewCell
         cell.feedTitleLabel.text = presenter.allPosts()?[indexPath.row].title
         cell.feedBodyLabel.text = presenter.allPosts()?[indexPath.row].body
-        if let link = presenter.allPosts()?[indexPath.row].url, (link.contains(Constants.firebaseurl) || link.contains(Constants.defaultuserurl)){
+        if let link = presenter.allPosts()?[indexPath.row].url{
             cell.feedImageView?.downloadedFrom(link: link)
         }
         if let postId = presenter.allPosts()?[indexPath.row].id, let comments = presenter.commentsFromPost(postId: postId){
@@ -152,15 +152,15 @@ class FeedViewController : BaseViewController, FeedView, UITableViewDelegate, UI
     
     @IBOutlet weak var feedPostButton: UIButton!
     
+    @IBOutlet weak var feedSendPostView: UIView!
+    
     var selectedPhoto : String?
     
     var selectedData : Data?
     
     @IBAction func shareThoughtsClicked(_ sender: Any) {
         isPosting = !isPosting
-        feedTitleTextField.isHidden = isPosting
-        feedMessageTextView.isHidden = isPosting
-        feedPostButton.isHidden = isPosting
+        feedSendPostView.isHidden = isPosting
         if isPosting{
             feedShareThoughtsButton.setTitle("Share your thoughts", for: .normal)
         }else{
@@ -211,22 +211,22 @@ class FeedViewController : BaseViewController, FeedView, UITableViewDelegate, UI
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         injector.inject(viewController: self)
         presenter.retrieveAll()
         isLoading = true
         feedTableView.delegate = self
         feedTableView.dataSource = self
         self.feedTableView.register(UINib.init(nibName: "FeedTableViewCell", bundle: nil), forCellReuseIdentifier: "FeedTableViewCell")
-        feedTitleTextField.isHidden = isPosting
-        feedMessageTextView.isHidden = isPosting
-        feedPostButton.isHidden = isPosting
+        feedSendPostView.isHidden = isPosting
+        
         feedUploadedImageView.addTapGesture(selector: #selector(FeedViewController.browseClicked), target: self)
         self.imagePicker = ImagePicker(presentationController: self, delegate: self)
          
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        self.navigationController?.navigationBar.isHidden = true
+        super.viewDidAppear(animated)
         if !isLoading, let refreshed = Config.getRefreshFeed(), !refreshed{
             presenter.retrieveAll()
             isLoading = true

@@ -35,6 +35,15 @@ class ServicesInjector: NSObject {
     
     init(data : APIData) {
         self.data = data
+        #if DEV
+        print("Alive")
+        #elseif MOCK
+        print("Dead 1")
+        #elseif DEBUG
+        print("Debug")
+        #else
+        print("Dead 2")
+        #endif
     }
     func getAPI() -> APIManager
     {

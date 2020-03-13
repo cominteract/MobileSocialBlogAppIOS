@@ -8,7 +8,6 @@
 
 import Firebase
 
-
 class FirebaseAPIManager: APIManager {
     
     var ref: DatabaseReference!

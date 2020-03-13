@@ -38,7 +38,7 @@ class BaseViewController: UIViewController {
             
         }
     }
-    
+  
     @objc func applicationWillResignActive(notification : NSNotification) {
         
     }
@@ -56,10 +56,14 @@ class BaseViewController: UIViewController {
     override func viewDidLoad() {
         startShowing()
         hideKeyboardWhenTappedAround()
-   
+        
         
     }
+   
     
+    
+
+     
     override func viewWillAppear(_ animated: Bool) {
     }
     

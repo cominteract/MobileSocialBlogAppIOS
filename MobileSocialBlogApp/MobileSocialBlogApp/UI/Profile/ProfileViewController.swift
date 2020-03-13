@@ -10,16 +10,16 @@ import UIKit
 
 /// ProfileViewController as ProfileView to be updated by the presenter after an implementation, BaseViewController for common methods and properties if ever (extensions etc)
 
-class ProfileViewController : BaseViewController, ProfileView, UITableViewDataSource, UITableViewDelegate {
+class ProfileViewController : BaseTabComponentViewController, ProfileView, UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if let count = allPosts?.count, isPost {
-            return 400
+            return 330
         }
         else if let count = allUsers?.count, !isPost {
-            return 120
+            return 72
         }
-        return 120
+        return 72
     }
     
     
@@ -138,15 +138,7 @@ class ProfileViewController : BaseViewController, ProfileView, UITableViewDataSo
         
     }
     
-    @IBAction func logoutClicked(_ sender: Any) {
-        Config.updateUser(value: "")
-        if let user = user{
-            user.online = false
-            presenter.updateUser(user: user, toUpload: false)
-        }
-        
-    }
-    
+
     var imagePicker: ImagePicker!
     
     var selectedPhoto : String?
@@ -159,27 +151,34 @@ class ProfileViewController : BaseViewController, ProfileView, UITableViewDataSo
     
     @IBOutlet weak var profileImageView: UIImageView!
     
-    @IBAction func browseClicked(_ sender: Any) {
-        self.imagePicker.present(from: sender as! UIView)
-    }
-    
     @IBOutlet weak var profileLabelStack: UIStackView!
     
     @IBOutlet weak var profileTextFieldStack: UIStackView!
     
-    @IBOutlet weak var profileEditButton: UIButton!
+
+    @IBAction func editClicked(_ sender: Any) {
+        isUpdating = true
+        profileTextFieldStack.isHidden = !isUpdating
+        profileLabelStack.isHidden = isUpdating
+    }
     
     @IBAction func updateClicked(_ sender: Any) {
-        isUpdating = !isUpdating
-        profileTextFieldStack.isHidden = isUpdating
-        profileLabelStack.isHidden = !isUpdating
-        if let user = user, isUpdating, let data = selectedData{
+        isUpdating = false
+        profileTextFieldStack.isHidden = !isUpdating
+        profileLabelStack.isHidden = isUpdating
+        if let user = user{
             user.firstname = profileFirstNameTextField.text
             user.lastname = profileLastNameTextField.text
             user.birthday = profileBirthdayTextField.text
             user.location = profileLocationTextField.text
+            profileFirstNameLabel.text = user.firstname
+            profileLastNameLabel.text = user.lastname
+            profileBirthdayLabel.text = user.birthday
+            profileLocationLabel.text = user.location
             presenter.updateUser(user: user, toUpload: selectedPhoto != nil)
-            presenter.uploadImage(data: data)
+            if let data = selectedData{
+                presenter.uploadImage(data: data)
+            }
         }
     }
     
@@ -225,18 +224,29 @@ class ProfileViewController : BaseViewController, ProfileView, UITableViewDataSo
         profileTableView.register(UINib.init(nibName: "FriendsTableViewCell", bundle: nil), forCellReuseIdentifier: "FriendsTableViewCell")
         profileTableView.register(UINib.init(nibName: "FeedTableViewCell", bundle: nil), forCellReuseIdentifier: "FeedTableViewCell")
         self.navigationController?.navigationBar.isHidden = true
+        
+       
         profileChatButton.isHidden = true
         if selectedUser != nil{
             self.navigationController?.navigationBar.isHidden = false
             profileChatButton.isHidden = false
+        }else{
+            self.profileImageView?.addTapGesture(selector:  #selector(ProfileViewController.browseClicked(_:)), target: self)
+        }
+    }
+   
+    @IBAction func browseClicked(_ sender: Any) {
+        if let recog = sender as? UITapGestureRecognizer, let imgv = recog.view as? UIImageView{
+            self.imagePicker.present(from: imgv)
         }
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        self.navigationController?.navigationBar.isHidden = true
+        
         if selectedUser != nil{
-            self.navigationController?.navigationBar.isHidden = false
+            isBackNeeded = true
         }
+        super.viewDidAppear(animated)
         if !isLoading, let refreshed = Config.getRefreshProfile(), !refreshed{
             presenter.retrieveAll()
             isLoading = true
@@ -257,12 +267,17 @@ class ProfileViewController : BaseViewController, ProfileView, UITableViewDataSo
                 allUsers = presenter.allUsers()?.filter({ $0.friendsId != nil && $0.friendsId!.contains(id)  })
                 allPosts = presenter.allPosts()?.filter({ $0.userId == user?.id })
             }
+            if let link = self.user?.photoUrl{
+                self.profileImageView?.downloadedFrom(link: link)
+            }
+            
             DispatchQueue.main.async { [weak self] in
                 var currentUser : Users?
                 currentUser = self?.user
                 if self?.selectedUser != nil{
                     currentUser = self?.selectedUser
                 }
+                
                 self?.profileFirstNameLabel.text = currentUser?.firstname
                 self?.profileLastNameLabel.text = currentUser?.lastname
                 self?.profileBirthdayLabel.text = currentUser?.birthday

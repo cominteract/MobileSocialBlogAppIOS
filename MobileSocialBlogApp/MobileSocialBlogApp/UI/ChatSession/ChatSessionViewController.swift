@@ -10,17 +10,20 @@ import UIKit
 
 /// ChatSessionViewController as ChatSessionView to be updated by the presenter after an implementation, BaseViewController for common methods and properties if ever (extensions etc)
 
-class ChatSessionViewController : BaseViewController, ChatSessionView, UITableViewDelegate, UITableViewDataSource {
+class ChatSessionViewController : BaseTabComponentViewController, ChatSessionView, UITableViewDelegate, UITableViewDataSource {
    
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 100
     }
     
+
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let username = chatMessagesSession()?[indexPath.row].author, let user = presenter.getUserFrom(username: username), user.username == Config.getUser(){
             let cell = tableView.dequeueReusableCell(withIdentifier: "ChatSessionTableViewCell") as! ChatSessionTableViewCell
-            cell.chatFriendTimestampLabel.text = chatMessagesSession()?[indexPath.row].timestamp
+
+            cell.chatFriendTimestampLabel.text = chatMessagesSession()?[indexPath.row].timestamp?.toDate()?.fromNow()
             cell.chatFriendUserLabel.text = chatMessagesSession()?[indexPath.row].author
             cell.chatFriendMessageLabel.text = chatMessagesSession()?[indexPath.row].message
             if let link = user.photoUrl{
@@ -30,7 +33,8 @@ class ChatSessionViewController : BaseViewController, ChatSessionView, UITableVi
         }
         else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "ChatSessionReplyTableViewCell") as! ChatSessionReplyTableViewCell
-            cell.chatFriendTimestampLabel.text = chatMessagesSession()?[indexPath.row].timestamp
+         
+            cell.chatFriendTimestampLabel.text = chatMessagesSession()?[indexPath.row].timestamp?.toDate()?.fromNow()
             cell.chatFriendUserLabel.text = chatMessagesSession()?[indexPath.row].author
             cell.chatFriendMessageLabel.text = chatMessagesSession()?[indexPath.row].message
             if let username = chatMessagesSession()?[indexPath.row].author, let user = presenter.getUserFrom(username: username), let link = user.photoUrl{
@@ -98,6 +102,11 @@ class ChatSessionViewController : BaseViewController, ChatSessionView, UITableVi
     var selectedUser : Users?
     
     var user : Users?
+    
+    override func viewDidAppear(_ animated: Bool) {
+        isBackNeeded = true
+        super.viewDidAppear(animated)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
