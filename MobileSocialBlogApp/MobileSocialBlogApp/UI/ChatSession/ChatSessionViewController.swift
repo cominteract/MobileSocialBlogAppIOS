@@ -22,10 +22,13 @@ class ChatSessionViewController : BaseTabComponentViewController, ChatSessionVie
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let username = chatMessagesSession()?[indexPath.row].author, let user = presenter.getUserFrom(username: username), user.username == Config.getUser(){
             let cell = tableView.dequeueReusableCell(withIdentifier: "ChatSessionTableViewCell") as! ChatSessionTableViewCell
-
+            
             cell.chatFriendTimestampLabel.text = chatMessagesSession()?[indexPath.row].timestamp?.toDate()?.fromNow()
             cell.chatFriendUserLabel.text = chatMessagesSession()?[indexPath.row].author
             cell.chatFriendMessageLabel.text = chatMessagesSession()?[indexPath.row].message
+            cell.chatFriendMessageLabel.layer.borderWidth = 2
+            cell.chatFriendMessageLabel.layer.cornerRadius = 15
+            
             if let link = user.photoUrl{
                 cell.chatFriendImageView.downloadedFrom(link: link)
             }
@@ -40,6 +43,9 @@ class ChatSessionViewController : BaseTabComponentViewController, ChatSessionVie
             if let username = chatMessagesSession()?[indexPath.row].author, let user = presenter.getUserFrom(username: username), let link = user.photoUrl{
                 cell.chatFriendImageView.downloadedFrom(link: link)
             }
+            cell.chatFriendMessageLabel.layer.borderWidth = 2
+            cell.chatFriendMessageLabel.layer.cornerRadius = 15
+            
             return cell
         }
     }
@@ -53,7 +59,7 @@ class ChatSessionViewController : BaseTabComponentViewController, ChatSessionVie
     
     func chatMessagesSession() -> [ChatMessages]?
     {
-        return presenter.allChats()?.filter({ ($0.userId == user?.id && $0.replyTo == selectedUser?.id) || ($0.userId == selectedUser?.id && $0.replyTo == user?.id)})
+        return presenter.allChats()?.filter({ ($0.userId == user?.id && $0.replyTo == chatId) || ($0.userId == chatId && $0.replyTo == user?.id)})
     }
     
     /// presenter as ChatSessionPresenter injected automatically to call implementations
@@ -69,7 +75,7 @@ class ChatSessionViewController : BaseTabComponentViewController, ChatSessionVie
         chat.userId = user?.id
         chat.timestamp = Date().toString()
         chat.message = chatSessionTextField.text
-        chat.replyTo = selectedUser?.id
+        chat.replyTo = chatId
         chat.timestamp_from = Date().fromNow()
         chat.msgId = 0
         if let count = presenter.allChats()?.count{
@@ -77,7 +83,7 @@ class ChatSessionViewController : BaseTabComponentViewController, ChatSessionVie
         }
         presenter.sendChat(chat: chat)
         var session = ChatSession()
-        if let userId = user?.id, let selectedId = selectedUser?.id{
+        if let userId = user?.id, let selectedId = chatId{
             if let sessions = presenter.allSessions(), sessions.filter({ $0.userIds != nil && $0.userIds!.contains(userId) && $0.userIds!.contains(selectedId) }).count > 0{
                 session = sessions.filter({ $0.userIds != nil && $0.userIds!.contains(userId) && $0.userIds!.contains(selectedId) })[0]
             }
@@ -99,7 +105,7 @@ class ChatSessionViewController : BaseTabComponentViewController, ChatSessionVie
     
     @IBOutlet weak var chatSessionTableView: UITableView!
     
-    var selectedUser : Users?
+    var chatId : String?
     
     var user : Users?
     

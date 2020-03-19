@@ -11,6 +11,8 @@ import UIKit
 /// DiscoverViewController as DiscoverView to be updated by the presenter after an implementation, BaseViewController for common methods and properties if ever (extensions etc)
 
 class DiscoverViewController : BaseTabComponentViewController, DiscoverView, UITableViewDelegate, UITableViewDataSource {
+
+
     
     
     
@@ -85,22 +87,8 @@ class DiscoverViewController : BaseTabComponentViewController, DiscoverView, UIT
     
     @IBAction func addFriendClicked(_ sender: Any) {
         if let recog = sender as? UITapGestureRecognizer, let btn = recog.view as? UIButton{
-            if let aUser = user, let bUser = allUsers?[btn.tag], let aId = aUser.id, let bId = bUser.id{
-                if aUser.friendsRequestedId != nil{
-                    aUser.friendsRequestedId?.append(bId)
-                }
-                if bUser.friendsInviteId != nil{
-                    bUser.friendsInviteId?.append(aId)
-                }
-                if aUser.friendsRequestedId == nil{
-                    aUser.friendsRequestedId = [String]()
-                    aUser.friendsRequestedId?.append(bId)
-                }
-                if bUser.friendsInviteId == nil{
-                    bUser.friendsInviteId = [String]()
-                    bUser.friendsInviteId?.append(aId)
-                }
-                presenter.updateUsers(aUser: aUser, bUser: bUser)
+            if let aUser = user, let bUser = allUsers?[btn.tag]{
+                presenter.addFriend(aUser: aUser, bUser: bUser)
             }
         }
     }
@@ -108,21 +96,7 @@ class DiscoverViewController : BaseTabComponentViewController, DiscoverView, UIT
     @IBAction func acceptFriendClicked(_ sender: Any) {
         if let recog = sender as? UITapGestureRecognizer, let btn = recog.view as? UIButton{
             if let aUser = user, let bUser = allUsers?[btn.tag]{
-                aUser.friendsInviteId = aUser.friendsInviteId?.filter( { $0 != bUser.id } )
-                aUser.friendsRequestedId = aUser.friendsRequestedId?.filter( { $0 != bUser.id } )
-                bUser.friendsInviteId = bUser.friendsInviteId?.filter( { $0 != aUser.id } )
-                bUser.friendsRequestedId = bUser.friendsRequestedId?.filter( { $0 != aUser.id } )
-                if aUser.friendsId == nil{
-                    aUser.friendsId = [String]()
-                }
-                if bUser.friendsId == nil{
-                    bUser.friendsId = [String]()
-                }
-                if let aId = aUser.id, let bId = bUser.id{
-                    aUser.friendsId?.append(bId)
-                    bUser.friendsId?.append(aId)
-                    presenter.updateUsers(aUser: aUser, bUser: bUser)
-                }
+                presenter.acceptFriend(aUser: aUser, bUser: bUser)
             }
         }
     }
@@ -130,11 +104,7 @@ class DiscoverViewController : BaseTabComponentViewController, DiscoverView, UIT
     @IBAction func cancelFriendClicked(_ sender: Any) {
         if let recog = sender as? UITapGestureRecognizer, let btn = recog.view as? UIButton{
             if let aUser = user, let bUser = allUsers?[btn.tag]{
-                aUser.friendsInviteId = aUser.friendsInviteId?.filter( { $0 != bUser.id } )
-                aUser.friendsRequestedId = aUser.friendsRequestedId?.filter( { $0 != bUser.id } )
-                bUser.friendsInviteId = bUser.friendsInviteId?.filter( { $0 != aUser.id } )
-                bUser.friendsRequestedId = bUser.friendsRequestedId?.filter( { $0 != aUser.id } )
-                presenter.updateUsers(aUser: aUser, bUser: bUser)
+                presenter.cancelFriend(aUser: aUser, bUser: bUser)
             }
         }
     }

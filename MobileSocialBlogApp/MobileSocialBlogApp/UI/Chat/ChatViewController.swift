@@ -76,10 +76,12 @@ class ChatViewController : BaseViewController, ChatView, UITableViewDelegate, UI
 
     
     @IBAction func viewSession(_ sender: Any) {
-        if let recog = sender as? UITapGestureRecognizer, let cell = recog.view as? UITableViewCell, let username = presenter.allSessions()?[cell.tag].author, let currentUser = Config.getUser(){
+        if let recog = sender as? UITapGestureRecognizer, let cell = recog.view as? UITableViewCell, let userIds = presenter.allSessions()?[cell.tag].userIds, let currentUser = Config.getUser(){
+            
+            
             let story = UIStoryboard.init(name: "Main", bundle: nil)
             let vc = story.instantiateViewController(withIdentifier: "ChatSession") as! ChatSessionViewController
-            vc.selectedUser = self.presenter.getUserFrom(username: username)
+            vc.chatId = userIds.filter({ $0 != self.presenter.getUserFrom(username: currentUser)?.id }).first
             vc.user = self.presenter.getUserFrom(username: currentUser)
             self.navigationController?.pushViewController(vc, animated: true)
         }

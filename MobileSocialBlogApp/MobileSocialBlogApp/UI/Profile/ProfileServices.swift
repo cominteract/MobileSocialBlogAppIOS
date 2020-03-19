@@ -117,6 +117,26 @@ class ProfileServices: NSObject {
         })
     }
     
+    func addPostsToApi(posts : Posts, toUpload : Bool){
+        if posts.id == nil{
+            posts.id = Constants.randomString(length: 22)
+            if let filtered = allPosts?.filter({ $0.id == posts.id }), filtered.count > 0{
+                posts.id = Constants.randomString(length: 22)
+            }
+        }
+        if posts.author == nil || posts.userId == nil || posts.title == nil{
+            print(" Can't send post missing fields ")
+            return
+        }
+
+        apiManager.addPosts(keyval: Posts.convertToKeyVal(post: posts), withCompletion: { [weak self] (err, message) in
+            if err != nil{
+                return
+            }
+            self?.delegate?.updatedPost()
+        })
+    }
+    
     func commentsFromPost(postId : String) -> [Comments]?{
         if let allComments = allComments{
             let filtered = allComments.filter({ $0.commentedTo == postId })

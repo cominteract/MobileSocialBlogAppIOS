@@ -84,45 +84,15 @@ class FeedViewController : BaseTabComponentViewController, FeedView, UITableView
     @IBAction func upvoteClicked(_ sender: Any) {
         if let recog = sender as? UITapGestureRecognizer, let img = recog.view as? UIImageView, let post = presenter.allPosts()?[img.tag]{
             if let id = user?.id{
-                if let upvotesId = post.upvotedId, upvotesId.contains(id){
-                    post.upvotedId = upvotesId.filter({ $0 != id })
-                    post.upvotes = post.upvotes - 1
-                }
-                else{
-                    post.upvotes = post.upvotes + 1
-                    if let downvotesId = post.downvotedId, downvotesId.contains(id){
-                        post.downvotes = post.downvotes - 1
-                        post.downvotedId = downvotesId.filter({ $0 != id  })
-                    }
-                    if post.upvotedId == nil{
-                        post.upvotedId = [String]()
-                    }
-                    post.upvotedId?.append(id)
-                }
+               self.presenter?.upvotePost(post: post, id: id)
             }
-            self.presenter?.sendPost(posts: post)
         }
     }
     @IBAction func downvoteClicked(_ sender: Any) {
         if let recog = sender as? UITapGestureRecognizer, let img = recog.view as? UIImageView, let post = presenter.allPosts()?[img.tag]{
             if let id = user?.id{
-                if let downvotesId = post.downvotedId, downvotesId.contains(id){
-                    post.downvotedId = downvotesId.filter({ $0 != id })
-                    post.downvotes = post.downvotes - 1
-                }
-                else{
-                    post.downvotes = post.downvotes + 1
-                    if let upvotesId = post.upvotedId, upvotesId.contains(id){
-                        post.upvotes = post.upvotes - 1
-                        post.upvotedId = upvotesId.filter({ $0 != id  })
-                    }
-                    if post.downvotedId == nil{
-                        post.downvotedId = [String]()
-                    }
-                    post.downvotedId?.append(id)
-                }
+                self.presenter?.downvotePost(post: post, id: id)
             }
-            self.presenter?.sendPost(posts: post)
         }
     }
 

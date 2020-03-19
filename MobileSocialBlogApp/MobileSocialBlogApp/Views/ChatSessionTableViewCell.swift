@@ -12,6 +12,10 @@ class ChatSessionTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
+        chatFriendMessageLabel.layer.masksToBounds = true
+        chatFriendMessageLabel.layer.borderWidth = 2
+        chatFriendMessageLabel.layer.cornerRadius = 25
+        //chatFriendMessageLabel.layer.borderColor = UIColor.gray as! CGColor
         // Initialization code
     }
     @IBOutlet weak var chatFriendImageView: UIImageView!

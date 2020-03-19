@@ -8,8 +8,14 @@
 
 /// DiscoverView protocol for updating the view in the view controllers
 protocol DiscoverView: class {
+    
     func updatedUsersUpdateView()
     func retrievedAllUpdateView()
+
+    
+    func isAlreadyFriend(bUser : Users) -> Bool
+    func isAlreadyRequested(bUser : Users) -> Bool
+    func isAlreadyInvited(bUser : Users) -> Bool
 }
 
 /// DiscoverDelegate protocol for delegating implementations from the DiscoverServices
@@ -22,6 +28,9 @@ protocol DiscoverDelegate: class{
 /// DiscoverPresenter protocol for implementing the DiscoverPresenter
 protocol DiscoverPresenter {
     func updateUsers(aUser : Users, bUser : Users)
+    func cancelFriend(aUser : Users, bUser : Users)
+    func acceptFriend(aUser : Users, bUser : Users)
+    func addFriend(aUser : Users, bUser : Users)
     func retrieveAll()
     func allUsers() -> [Users]?
     func getUserFrom(username : String) -> Users?
@@ -29,6 +38,52 @@ protocol DiscoverPresenter {
 
 /// DiscoverPresenter implementation based on the presenter protocol
 class DiscoverPresenterImplementation : DiscoverPresenter, DiscoverDelegate {
+    func cancelFriend(aUser: Users, bUser: Users) {
+        aUser.friendsInviteId = aUser.friendsInviteId?.filter( { $0 != bUser.id } )
+        aUser.friendsRequestedId = aUser.friendsRequestedId?.filter( { $0 != bUser.id } )
+        bUser.friendsInviteId = bUser.friendsInviteId?.filter( { $0 != aUser.id } )
+        bUser.friendsRequestedId = bUser.friendsRequestedId?.filter( { $0 != aUser.id } )
+        updateUsers(aUser: aUser, bUser: bUser)
+    }
+    
+    func acceptFriend(aUser: Users, bUser: Users) {
+        aUser.friendsInviteId = aUser.friendsInviteId?.filter( { $0 != bUser.id } )
+        aUser.friendsRequestedId = aUser.friendsRequestedId?.filter( { $0 != bUser.id } )
+        bUser.friendsInviteId = bUser.friendsInviteId?.filter( { $0 != aUser.id } )
+        bUser.friendsRequestedId = bUser.friendsRequestedId?.filter( { $0 != aUser.id } )
+        if aUser.friendsId == nil{
+            aUser.friendsId = [String]()
+        }
+        if bUser.friendsId == nil{
+            bUser.friendsId = [String]()
+        }
+        if let aId = aUser.id, let bId = bUser.id{
+            aUser.friendsId?.append(bId)
+            bUser.friendsId?.append(aId)
+            updateUsers(aUser: aUser, bUser: bUser)
+        }
+    }
+    
+    func addFriend(aUser: Users, bUser: Users) {
+        if let aId = aUser.id, let bId = bUser.id{
+            if aUser.friendsRequestedId != nil{
+                aUser.friendsRequestedId?.append(bId)
+            }
+            if bUser.friendsInviteId != nil{
+                bUser.friendsInviteId?.append(aId)
+            }
+            if aUser.friendsRequestedId == nil{
+                aUser.friendsRequestedId = [String]()
+                aUser.friendsRequestedId?.append(bId)
+            }
+            if bUser.friendsInviteId == nil{
+                bUser.friendsInviteId = [String]()
+                bUser.friendsInviteId?.append(aId)
+            }
+            updateUsers(aUser: aUser, bUser: bUser)
+        }
+    }
+    
     func updateUsers(aUser: Users ,bUser: Users) {
         service.addUserToApi(aUser: aUser, toUpload: false)
         service.addUserToApi(aUser: bUser, toUpload: false)

@@ -46,6 +46,8 @@
 		588BDE9D239250A100DCD90E /* DiscoverTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 588BDE9C239250A100DCD90E /* DiscoverTableViewCell.swift */; };
 		588BDE9F2392517C00DCD90E /* FriendsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 588BDE9E2392517C00DCD90E /* FriendsTableViewCell.xib */; };
 		588BDEA12392518F00DCD90E /* FriendsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 588BDEA02392518F00DCD90E /* FriendsTableViewCell.swift */; };
+		589B56232423B30F00986A82 /* UILabelPadding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 589B56222423B30F00986A82 /* UILabelPadding.swift */; };
+		589B56252423B5F000986A82 /* ButtonPadding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 589B56242423B5F000986A82 /* ButtonPadding.swift */; };
 		58AB5A50238D2BA600301C27 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58AB5A4F238D2BA600301C27 /* Extensions.swift */; };
 		58B6B84F238E7FF90028CB5C /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58B6B84E238E7FF90028CB5C /* ImagePicker.swift */; };
 		58B6B856238EA2120028CB5C /* SignupInjector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58B6B852238EA2120028CB5C /* SignupInjector.swift */; };
@@ -172,6 +174,8 @@
 		588BDE9C239250A100DCD90E /* DiscoverTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverTableViewCell.swift; sourceTree = "<group>"; };
 		588BDE9E2392517C00DCD90E /* FriendsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FriendsTableViewCell.xib; sourceTree = "<group>"; };
 		588BDEA02392518F00DCD90E /* FriendsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendsTableViewCell.swift; sourceTree = "<group>"; };
+		589B56222423B30F00986A82 /* UILabelPadding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILabelPadding.swift; sourceTree = "<group>"; };
+		589B56242423B5F000986A82 /* ButtonPadding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonPadding.swift; sourceTree = "<group>"; };
 		58AB5A4F238D2BA600301C27 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		58B6B84E238E7FF90028CB5C /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		58B6B852238EA2120028CB5C /* SignupInjector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupInjector.swift; sourceTree = "<group>"; };
@@ -340,13 +344,6 @@
 			path = Chat;
 			sourceTree = "<group>";
 		};
-		58B6B84D238E7FEC0028CB5C /* New Group */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "New Group";
-			sourceTree = "<group>";
-		};
 		58B6B850238EA1EF0028CB5C /* UI */ = {
 			isa = PBXGroup;
 			children = (
@@ -458,12 +455,13 @@
 		58D9660D238BEA0800338B0F /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				58B6B84D238E7FEC0028CB5C /* New Group */,
 				58AB5A4F238D2BA600301C27 /* Extensions.swift */,
 				58D9660E238BEA1700338B0F /* Constants.swift */,
 				58D96619238C16C100338B0F /* Conversions.swift */,
 				58B6B84E238E7FF90028CB5C /* ImagePicker.swift */,
 				58D8F80F238F86D700E1EDEE /* Config.swift */,
+				589B56222423B30F00986A82 /* UILabelPadding.swift */,
+				589B56242423B5F000986A82 /* ButtonPadding.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -816,6 +814,7 @@
 				58D96608238BE89400338B0F /* MockAPIManager.swift in Sources */,
 				588BDE9623924F0200DCD90E /* ChatInjector.swift in Sources */,
 				58AB5A50238D2BA600301C27 /* Extensions.swift in Sources */,
+				589B56252423B5F000986A82 /* ButtonPadding.swift in Sources */,
 				58D9660F238BEA1700338B0F /* Constants.swift in Sources */,
 				58D965F9238BE86A00338B0F /* APIProtocol.swift in Sources */,
 				58B6B85F238EBBED0028CB5C /* OptionalSignupInjector.swift in Sources */,
@@ -840,6 +839,7 @@
 				58D96606238BE89400338B0F /* MockAuthManager.swift in Sources */,
 				58D96618238BED4600338B0F /* SampleServices.swift in Sources */,
 				58B6B87C238ECCD00028CB5C /* ProfileInjector.swift in Sources */,
+				589B56232423B30F00986A82 /* UILabelPadding.swift in Sources */,
 				58D96615238BED4600338B0F /* SampleInjector.swift in Sources */,
 				58D96617238BED4600338B0F /* SamplePresenter.swift in Sources */,
 				58B6B87E238ECCD00028CB5C /* ProfilePresenter.swift in Sources */,

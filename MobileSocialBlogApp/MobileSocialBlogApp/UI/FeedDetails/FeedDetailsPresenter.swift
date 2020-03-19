@@ -8,21 +8,25 @@
 
 /// FeedDetailsView protocol for updating the view in the view controllers
 protocol FeedDetailsView: class {
-  
+    func updatedPostUpdateView()
     func addedCommentsUpdateView()
     func retrievedAllUpdateView()
 }
 
 /// FeedDetailsDelegate protocol for delegating implementations from the FeedDetailsServices
 protocol FeedDetailsDelegate: class{
+    func updatedPost()
     func addedComments()
     func retrievedAll()
 }
 
 /// FeedDetailsPresenter protocol for implementing the FeedDetailsPresenter
 protocol FeedDetailsPresenter {
+    func upvotePost(post: Posts, id : String)
+    func downvotePost(post : Posts, id : String)
     func allComments() -> [Comments]?
     func allUsers() -> [Users]?
+    func replyToComment(comment : Comments)
     func retrieveAll()
     func allowedToReply() -> Bool
     func sendComment(comment : Comments)
@@ -33,6 +37,55 @@ protocol FeedDetailsPresenter {
 /// FeedDetailsPresenter implementation based on the presenter protocol
 class FeedDetailsPresenterImplementation : FeedDetailsPresenter, FeedDetailsDelegate {
     
+    func replyToComment(comment: Comments) {
+        sendComment(comment: comment)
+    }
+    
+    func updatedPost() {
+        view?.updatedPostUpdateView()
+    }
+    
+    func upvotePost(post: Posts, id: String) {
+        if let upvotesId = post.upvotedId, upvotesId.contains(id){
+            post.upvotedId = upvotesId.filter({ $0 != id })
+            post.upvotes = post.upvotes - 1
+        }
+        else{
+            post.upvotes = post.upvotes + 1
+            if let downvotesId = post.downvotedId, downvotesId.contains(id){
+                post.downvotes = post.downvotes - 1
+                post.downvotedId = downvotesId.filter({ $0 != id  })
+            }
+            if post.upvotedId == nil{
+                post.upvotedId = [String]()
+            }
+            post.upvotedId?.append(id)
+        }
+        self.sendPost(posts: post)
+    }
+    
+    func downvotePost(post: Posts, id: String) {
+        if let downvotesId = post.downvotedId, downvotesId.contains(id){
+            post.downvotedId = downvotesId.filter({ $0 != id })
+            post.downvotes = post.downvotes - 1
+        }
+        else{
+            post.downvotes = post.downvotes + 1
+            if let upvotesId = post.upvotedId, upvotesId.contains(id){
+                post.upvotes = post.upvotes - 1
+                post.upvotedId = upvotesId.filter({ $0 != id  })
+            }
+            if post.downvotedId == nil{
+                post.downvotedId = [String]()
+            }
+            post.downvotedId?.append(id)
+        }
+        self.sendPost(posts: post)
+    }
+    
+    func sendPost(posts: Posts) {
+        service.addPostsToApi(posts: posts, toUpload: true)
+    }
     
     func getUserFrom(username: String) -> Users? {
         return service.getUserFrom(username: username)
@@ -54,6 +107,7 @@ class FeedDetailsPresenterImplementation : FeedDetailsPresenter, FeedDetailsDele
     func retrieveAll() {
         service.retrieveAllUsers()
         service.retrieveAllComments()
+        service.retrieveAllPosts()
     }
     
     func allowedToReply() -> Bool {

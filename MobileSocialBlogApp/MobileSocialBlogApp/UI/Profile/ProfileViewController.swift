@@ -50,6 +50,24 @@ class ProfileViewController : BaseTabComponentViewController, ProfileView, UITab
 //        
 //    }
     
+    func updatedPostUpdateView() {
+        self.presenter?.retrieveAll()
+    }
+    
+    @IBAction func upvoteClicked(_ sender: Any) {
+        if let recog = sender as? UITapGestureRecognizer, let img = recog.view as? UIImageView, let post = presenter.allPosts()?[img.tag]{
+            if let id = user?.id{
+                self.presenter?.upvotePost(post: post, id: id)
+            }
+        }
+    }
+    @IBAction func downvoteClicked(_ sender: Any) {
+        if let recog = sender as? UITapGestureRecognizer, let img = recog.view as? UIImageView, let post = presenter.allPosts()?[img.tag]{
+            if let id = user?.id{
+                self.presenter?.downvotePost(post: post, id: id)
+            }
+        }
+    }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if !isPost{
@@ -128,11 +146,16 @@ class ProfileViewController : BaseTabComponentViewController, ProfileView, UITab
     
     @IBAction func postClicked(_ sender: Any) {
         isPost = true
-        
+        profilePostsButton.backgroundColor = orangeColor
+        profileFriendsButton.backgroundColor = blueColor
+        profileChatButton.backgroundColor = blueColor
         profileTableView.reloadData()
     }
     
     @IBAction func friendsClicked(_ sender: Any) {
+        profilePostsButton.backgroundColor = blueColor
+        profileFriendsButton.backgroundColor = orangeColor
+        profileChatButton.backgroundColor = blueColor
         isPost = false
         profileTableView.reloadData()
         
@@ -200,16 +223,29 @@ class ProfileViewController : BaseTabComponentViewController, ProfileView, UITab
     
     @IBOutlet weak var profileTableView: UITableView!
     
+    var blueColor : UIColor?
+    var orangeColor : UIColor?
     
     @IBAction func profileChatClicked(_ sender: Any) {
         let story = UIStoryboard.init(name: "Main", bundle: nil)
         let vc = story.instantiateViewController(withIdentifier: "ChatSession") as! ChatSessionViewController
-        vc.selectedUser = self.selectedUser
+        vc.chatId = self.selectedUser?.id
         vc.user = self.user
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
     @IBOutlet weak var profileChatButton: UIButton!
+    
+    @IBOutlet weak var profileEditButton: UIButton!
+    
+    @IBOutlet weak var profileUpdateButton: UIButton!
+    
+    @IBOutlet weak var profileFriendsButton: UIButton!
+    
+    @IBOutlet weak var profilePostsButton: UIButton!
+    
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -224,12 +260,16 @@ class ProfileViewController : BaseTabComponentViewController, ProfileView, UITab
         profileTableView.register(UINib.init(nibName: "FriendsTableViewCell", bundle: nil), forCellReuseIdentifier: "FriendsTableViewCell")
         profileTableView.register(UINib.init(nibName: "FeedTableViewCell", bundle: nil), forCellReuseIdentifier: "FeedTableViewCell")
         self.navigationController?.navigationBar.isHidden = true
-        
-       
+        orangeColor = UIColor.orange
+        blueColor = profileFriendsButton.backgroundColor
+        profilePostsButton.backgroundColor = orangeColor
+        profileFriendsButton.backgroundColor = blueColor
+        profileChatButton.backgroundColor = blueColor
         profileChatButton.isHidden = true
         if selectedUser != nil{
             self.navigationController?.navigationBar.isHidden = false
             profileChatButton.isHidden = false
+
         }else{
             self.profileImageView?.addTapGesture(selector:  #selector(ProfileViewController.browseClicked(_:)), target: self)
         }

@@ -29,6 +29,14 @@ class FeedDetailsServices: NSObject {
     
     var allowedReply : Bool = false
     
+    var allowedComments : Bool = false
+    
+    var allPosts : [Posts]? {
+        didSet{
+            allowedComments = allPosts != nil
+        }
+    }
+    
     var allUsers : [Users]? {
         didSet{
             allowedReply = allComments != nil
@@ -86,6 +94,18 @@ class FeedDetailsServices: NSObject {
         apiManager.retrieveAllUsers(usersRetrieved: usersRetrieved)
     }
     
+    func retrieveAllPosts(){
+        let postsRetrieved = PostsRetrieved()
+        postsRetrieved.didRetrievePosts = { [weak self] (posts : [Posts]? ,errorMessage : String?) in
+            self?.allPosts = posts
+            self?.retrievedAll()
+          
+        }
+        apiManager.retrieveAllPosts(postsRetrieved: postsRetrieved)
+    }
+    
+    
+    
     func retrieveAllComments(){
         let commentsRetrieved = CommentsRetrieved()
         commentsRetrieved.didRetrieveComments = { [weak self] (comments : [Comments]? ,errorMessage : String?) in
@@ -112,6 +132,27 @@ class FeedDetailsServices: NSObject {
             }
             self?.delegate?.addedComments()
         }
+    }
+    
+    
+    func addPostsToApi(posts : Posts, toUpload : Bool){
+        if posts.id == nil{
+            posts.id = Constants.randomString(length: 22)
+            if let filtered = allPosts?.filter({ $0.id == posts.id }), filtered.count > 0{
+                posts.id = Constants.randomString(length: 22)
+            }
+        }
+        if posts.author == nil || posts.userId == nil || posts.title == nil{
+            print(" Can't send post missing fields ")
+            return
+        }
+
+        apiManager.addPosts(keyval: Posts.convertToKeyVal(post: posts), withCompletion: { [weak self] (err, message) in
+            if err != nil{
+                return
+            }
+            self?.delegate?.updatedPost()
+        })
     }
     
 }

@@ -29,8 +29,11 @@ class FeedDetailsViewController : BaseTabComponentViewController, FeedDetailsVie
     
     var isCommenting = false
     
+    var newComment : Comments?
+    
     @IBOutlet weak var feedDetailsCommentButton: UIButton!
-    @IBAction func commentClicked(_ sender: Any) {
+    
+    func showOrHideComment(){
         isCommenting = !isCommenting
         feedDetailsCommentButton.setTitle("Comment on post", for: .normal)
         if isCommenting{
@@ -39,6 +42,10 @@ class FeedDetailsViewController : BaseTabComponentViewController, FeedDetailsVie
         
         feedDetailsPostButton.isHidden = !isCommenting
         feedDetailsTextView.isHidden = !isCommenting
+    }
+    
+    @IBAction func commentClicked(_ sender: Any) {
+        showOrHideComment()
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if let comments = comments{
@@ -56,6 +63,36 @@ class FeedDetailsViewController : BaseTabComponentViewController, FeedDetailsVie
             return 325
         }
         return 100
+    }
+    
+    func updatedPostUpdateView() {
+        self.presenter?.retrieveAll()
+    }
+    
+    @IBAction func replyClicked(_ sender: Any) {
+        if let recog = sender as? UITapGestureRecognizer, let img = recog.view as? UIImageView, let comment = presenter?.allComments()?[img.tag]{
+            newComment = Comments()
+            newComment?.replyTo = comment.id
+            newComment?.replyToComment = comment
+            newComment?.id = Constants.randomString(length: 22)
+
+            showOrHideComment()
+        }
+    }
+    
+    @IBAction func upvoteClicked(_ sender: Any) {
+        if let recog = sender as? UITapGestureRecognizer, let img = recog.view as? UIImageView{
+            if let id = user?.id, let post = posts{
+                self.presenter?.upvotePost(post: post, id: id)
+            }
+        }
+    }
+    @IBAction func downvoteClicked(_ sender: Any) {
+        if let recog = sender as? UITapGestureRecognizer, let img = recog.view as? UIImageView{
+            if let id = user?.id, let post = posts{
+                self.presenter?.downvotePost(post: post, id: id)
+            }
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -80,6 +117,10 @@ class FeedDetailsViewController : BaseTabComponentViewController, FeedDetailsVie
             if let link = user?.photoUrl{
                 cell.feedUserImageView.downloadedFrom(link: link)
             }
+            cell.feedUpvoteImageView.addTapGesture(selector: #selector(FeedViewController.upvoteClicked(_:)), target: self)
+            cell.feedUpvoteImageView.tag = indexPath.row
+            cell.feedDownvoteImageView.addTapGesture(selector: #selector(FeedViewController.downvoteClicked(_:)), target: self)
+            cell.feedDownvoteImageView.tag = indexPath.row
             return cell
         }
         else{
@@ -103,6 +144,8 @@ class FeedDetailsViewController : BaseTabComponentViewController, FeedDetailsVie
             cell.commentUserImageView.addTapGesture(selector: #selector(FeedDetailsViewController.viewProfile(_:)), target: self)
             cell.commentUserImageView.tag = indexPath.row - 1
             
+            cell.commentReplyImageView.addTapGesture(selector: #selector(FeedDetailsViewController.replyClicked(_:)), target: self)
+            cell.commentReplyImageView.tag = indexPath.row - 1
             return cell
         }
     }
@@ -123,20 +166,33 @@ class FeedDetailsViewController : BaseTabComponentViewController, FeedDetailsVie
     }
     
     @IBAction func postClicked(_ sender: Any) {
-        let comment = Comments()
-        comment.id = Constants.randomString(length: 22)
-        comment.author = user?.username
-        comment.userId = user?.id
-        comment.commentedTo = posts?.id
-        comment.commentedToPost = posts
-        comment.downvotes = 0
-        comment.upvotes = 0
-        comment.timestamp = Date().toString()
-        comment.message = feedDetailsTextView.text
-        if let replyTo = replyTo{
-            comment.replyTo = replyTo
+        if newComment == nil{
+            let comment = Comments()
+            comment.id = Constants.randomString(length: 22)
+            comment.author = user?.username
+            comment.userId = user?.id
+            comment.commentedTo = posts?.id
+            comment.commentedToPost = posts
+            comment.downvotes = 0
+            comment.upvotes = 0
+            comment.timestamp = Date().toString()
+            comment.message = feedDetailsTextView.text
+            if let replyTo = replyTo{
+                comment.replyTo = replyTo
+            }
+            presenter?.sendComment(comment: comment)
+        }else if let newComment = newComment{
+            newComment.author = user?.username
+            newComment.userId = user?.id
+            newComment.message = feedDetailsTextView.text
+            newComment.commentedTo = posts?.id
+            newComment.commentedToPost = posts
+            newComment.downvotes = 0
+            newComment.upvotes = 0
+            newComment.timestamp = Date().toString()
+            self.presenter?.replyToComment(comment: newComment)
         }
-        presenter?.sendComment(comment: comment)
+        
     }
     
     var posts : Posts?
@@ -167,6 +223,8 @@ class FeedDetailsViewController : BaseTabComponentViewController, FeedDetailsVie
     
     func addedCommentsUpdateView() {
         replyTo = nil
+        newComment = nil
+        showOrHideComment()
     }
   
     func retrievedAllUpdateView() {
@@ -176,8 +234,6 @@ class FeedDetailsViewController : BaseTabComponentViewController, FeedDetailsVie
                 self?.feedDetailsTableView.reloadData()
             }
         }
-        
-        
     }
     
 }

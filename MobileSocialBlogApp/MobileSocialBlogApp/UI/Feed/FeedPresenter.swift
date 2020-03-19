@@ -13,15 +13,17 @@ protocol FeedView: class {
     func retrievedAllUpdateView()
     func downloadedImageUpdateView(image : UIImage)
     func uploadedImageUpdateView()
+    
 }
 
 /// FeedDelegate protocol for delegating implementations from the FeedServices
 protocol FeedDelegate: class{
     func addedPost()
+    func uploadedImage()
     func addedComments()
     func retrievedAll()
     func downloadedImage(image : UIImage)
-    func uploadedImage()
+    
 }
 
 /// FeedPresenter protocol for implementing the FeedPresenter
@@ -36,7 +38,8 @@ protocol FeedPresenter {
     func allComments() -> [Comments]?
     func getUserFrom(username : String) -> Users?
     func sendPost(posts : Posts)
-  
+    func upvotePost(post: Posts, id : String)
+    func downvotePost(post : Posts, id : String)
     func uploadImage(data : Data, username : String)
     func uploadPostImage(data : Data, postId : String)
     func commentsFromPost(postId : String) -> [Comments]?
@@ -44,6 +47,43 @@ protocol FeedPresenter {
 
 /// FeedPresenter implementation based on the presenter protocol
 class FeedPresenterImplementation : FeedPresenter, FeedDelegate {
+    func upvotePost(post: Posts, id: String) {
+        if let upvotesId = post.upvotedId, upvotesId.contains(id){
+            post.upvotedId = upvotesId.filter({ $0 != id })
+            post.upvotes = post.upvotes - 1
+        }
+        else{
+            post.upvotes = post.upvotes + 1
+            if let downvotesId = post.downvotedId, downvotesId.contains(id){
+                post.downvotes = post.downvotes - 1
+                post.downvotedId = downvotesId.filter({ $0 != id  })
+            }
+            if post.upvotedId == nil{
+                post.upvotedId = [String]()
+            }
+            post.upvotedId?.append(id)
+        }
+        self.sendPost(posts: post)
+    }
+    func downvotePost(post: Posts, id: String) {
+        if let downvotesId = post.downvotedId, downvotesId.contains(id){
+            post.downvotedId = downvotesId.filter({ $0 != id })
+            post.downvotes = post.downvotes - 1
+        }
+        else{
+            post.downvotes = post.downvotes + 1
+            if let upvotesId = post.upvotedId, upvotesId.contains(id){
+                post.upvotes = post.upvotes - 1
+                post.upvotedId = upvotesId.filter({ $0 != id  })
+            }
+            if post.downvotedId == nil{
+                post.downvotedId = [String]()
+            }
+            post.downvotedId?.append(id)
+        }
+        self.sendPost(posts: post)
+    }
+    
     
     func commentsFromPost(postId: String) -> [Comments]? {
         return service.commentsFromPost(postId: postId)

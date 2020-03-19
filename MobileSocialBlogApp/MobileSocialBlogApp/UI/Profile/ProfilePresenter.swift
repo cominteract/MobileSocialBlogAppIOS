@@ -12,6 +12,7 @@ protocol ProfileView: class {
     func addedUserUpdateView()
     func downloadedImageUpdateView(image : UIImage)
     func uploadedImageUpdateView()
+    func updatedPostUpdateView()
 }
 
 /// ProfileDelegate protocol for delegating implementations from the ProfileServices
@@ -19,11 +20,14 @@ protocol ProfileDelegate: class{
     func retrievedAll()
     func addedUser()
     func downloadedImage(image : UIImage)
+    func updatedPost()
     func uploadedImage()
 }
 
 /// ProfilePresenter protocol for implementing the ProfilePresenter
 protocol ProfilePresenter {
+    func upvotePost(post: Posts, id : String)
+    func downvotePost(post : Posts, id : String)
     func getUserFrom(username : String) -> Users?
     func retrieveAll()
     func allPosts() -> [Posts]?
@@ -38,6 +42,52 @@ protocol ProfilePresenter {
 
 /// ProfilePresenter implementation based on the presenter protocol
 class ProfilePresenterImplementation : ProfilePresenter, ProfileDelegate {
+  
+    func updatedPost() {
+        view?.updatedPostUpdateView()
+    }
+    
+    func upvotePost(post: Posts, id: String) {
+        if let upvotesId = post.upvotedId, upvotesId.contains(id){
+            post.upvotedId = upvotesId.filter({ $0 != id })
+            post.upvotes = post.upvotes - 1
+        }
+        else{
+            post.upvotes = post.upvotes + 1
+            if let downvotesId = post.downvotedId, downvotesId.contains(id){
+                post.downvotes = post.downvotes - 1
+                post.downvotedId = downvotesId.filter({ $0 != id  })
+            }
+            if post.upvotedId == nil{
+                post.upvotedId = [String]()
+            }
+            post.upvotedId?.append(id)
+        }
+        self.sendPost(posts: post)
+    }
+    func downvotePost(post: Posts, id: String) {
+        if let downvotesId = post.downvotedId, downvotesId.contains(id){
+            post.downvotedId = downvotesId.filter({ $0 != id })
+            post.downvotes = post.downvotes - 1
+        }
+        else{
+            post.downvotes = post.downvotes + 1
+            if let upvotesId = post.upvotedId, upvotesId.contains(id){
+                post.upvotes = post.upvotes - 1
+                post.upvotedId = upvotesId.filter({ $0 != id  })
+            }
+            if post.downvotedId == nil{
+                post.downvotedId = [String]()
+            }
+            post.downvotedId?.append(id)
+        }
+        self.sendPost(posts: post)
+    }
+    
+    func sendPost(posts: Posts) {
+        service.addPostsToApi(posts: posts, toUpload: true)
+    }
+    
     func retrieveAll() {
         service.retrieveAllPosts()
         service.retrieveAllUsers()
