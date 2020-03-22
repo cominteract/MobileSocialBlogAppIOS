@@ -14,6 +14,10 @@
 		581CF8E52393B6C100FF2CB0 /* ChatSessionPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 581CF8E12393B6C100FF2CB0 /* ChatSessionPresenter.swift */; };
 		581CF8E62393B6C100FF2CB0 /* ChatSessionServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 581CF8E22393B6C100FF2CB0 /* ChatSessionServices.swift */; };
 		581CF8E72393B6C100FF2CB0 /* ChatSessionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 581CF8E32393B6C100FF2CB0 /* ChatSessionViewController.swift */; };
+		5827A7F22427BAF400A8B95F /* CallRecords.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5827A7F12427BAF400A8B95F /* CallRecords.swift */; };
+		5827A7F42427BBF500A8B95F /* CallAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5827A7F32427BBF500A8B95F /* CallAPIManager.swift */; };
+		5827A8072427CF1300A8B95F /* JitsiMeet.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5827A8032427CE0C00A8B95F /* JitsiMeet.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		5827A8092427CF1300A8B95F /* WebRTC.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5827A8022427CE0C00A8B95F /* WebRTC.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		5844D88D2392CD2600996909 /* ChatFriendTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5844D88C2392CD2600996909 /* ChatFriendTableViewCell.swift */; };
 		5844D88F2392CD7300996909 /* ChatFriendTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5844D88E2392CD7300996909 /* ChatFriendTableViewCell.xib */; };
 		5855F96423B73A370096F788 /* FeedViewImplementation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5855F96323B73A370096F788 /* FeedViewImplementation.swift */; };
@@ -139,6 +143,21 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		5827A80A2427CF1400A8B95F /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				5827A8072427CF1300A8B95F /* JitsiMeet.framework in Embed Frameworks */,
+				5827A8092427CF1300A8B95F /* WebRTC.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		02576B11C97D1851F7ABE790 /* Pods-MobileSocialBlogAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MobileSocialBlogAppTests.debug.xcconfig"; path = "Target Support Files/Pods-MobileSocialBlogAppTests/Pods-MobileSocialBlogAppTests.debug.xcconfig"; sourceTree = "<group>"; };
 		0DD9DD3961F8D401E13480C8 /* Pods_MobileSocialBlogAppUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MobileSocialBlogAppUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -151,6 +170,10 @@
 		581CF8E12393B6C100FF2CB0 /* ChatSessionPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatSessionPresenter.swift; sourceTree = "<group>"; };
 		581CF8E22393B6C100FF2CB0 /* ChatSessionServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatSessionServices.swift; sourceTree = "<group>"; };
 		581CF8E32393B6C100FF2CB0 /* ChatSessionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatSessionViewController.swift; sourceTree = "<group>"; };
+		5827A7F12427BAF400A8B95F /* CallRecords.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallRecords.swift; sourceTree = "<group>"; };
+		5827A7F32427BBF500A8B95F /* CallAPIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallAPIManager.swift; sourceTree = "<group>"; };
+		5827A8022427CE0C00A8B95F /* WebRTC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = WebRTC.framework; sourceTree = "<group>"; };
+		5827A8032427CE0C00A8B95F /* JitsiMeet.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = JitsiMeet.framework; sourceTree = "<group>"; };
 		5844D88C2392CD2600996909 /* ChatFriendTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatFriendTableViewCell.swift; sourceTree = "<group>"; };
 		5844D88E2392CD7300996909 /* ChatFriendTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChatFriendTableViewCell.xib; sourceTree = "<group>"; };
 		5855F96323B73A370096F788 /* FeedViewImplementation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewImplementation.swift; sourceTree = "<group>"; };
@@ -438,6 +461,7 @@
 				58D96603238BE89400338B0F /* FirebaseAPIManager.swift */,
 				58D96604238BE89400338B0F /* AuthManager.swift */,
 				58D96605238BE89400338B0F /* FirebaseAuthManager.swift */,
+				5827A7F32427BBF500A8B95F /* CallAPIManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -549,6 +573,7 @@
 				58D9661D238C20B500338B0F /* Comments.swift */,
 				581CF8DD23937EDE00FF2CB0 /* ChatMessages.swift */,
 				587A6437239554BF004D7800 /* ChatSession.swift */,
+				5827A7F12427BAF400A8B95F /* CallRecords.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -556,6 +581,8 @@
 		60540F0B72C864A1B37ABDE6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5827A8032427CE0C00A8B95F /* JitsiMeet.framework */,
+				5827A8022427CE0C00A8B95F /* WebRTC.framework */,
 				655535FB48A4E10D154CB06D /* Pods_MobileSocialBlogApp.framework */,
 				912513F655C9A3156738B5FC /* Pods_MobileSocialBlogAppTests.framework */,
 				0DD9DD3961F8D401E13480C8 /* Pods_MobileSocialBlogAppUITests.framework */,
@@ -594,6 +621,7 @@
 				58F243EB238BD8C700DC6B44 /* Frameworks */,
 				58F243EC238BD8C700DC6B44 /* Resources */,
 				4D4DC44BE66F4D270EC1CDB1 /* [CP] Embed Pods Frameworks */,
+				5827A80A2427CF1400A8B95F /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -844,6 +872,7 @@
 				58D96617238BED4600338B0F /* SamplePresenter.swift in Sources */,
 				58B6B87E238ECCD00028CB5C /* ProfilePresenter.swift in Sources */,
 				58B6B860238EBBED0028CB5C /* OptionalSignupViewController.swift in Sources */,
+				5827A7F22427BAF400A8B95F /* CallRecords.swift in Sources */,
 				581CF8E42393B6C100FF2CB0 /* ChatSessionInjector.swift in Sources */,
 				58B6B86D238EC7970028CB5C /* MainViewController.swift in Sources */,
 				58724BC3238F7DD10061A48C /* FeedTableViewCell.swift in Sources */,
@@ -862,6 +891,7 @@
 				58D8C15523915197004A707A /* FeedDetailsServices.swift in Sources */,
 				58D9660C238BE89400338B0F /* FirebaseAuthManager.swift in Sources */,
 				587A6438239554BF004D7800 /* ChatSession.swift in Sources */,
+				5827A7F42427BBF500A8B95F /* CallAPIManager.swift in Sources */,
 				58D965F8238BE86A00338B0F /* DataProtocol.swift in Sources */,
 				58D8F810238F86D700E1EDEE /* Config.swift in Sources */,
 				58B6B862238EBBED0028CB5C /* OptionalSignupServices.swift in Sources */,
@@ -1031,6 +1061,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = XA24T5L447;
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/MobileSocialBlogApp",
+				);
 				INFOPLIST_FILE = MobileSocialBlogApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1159,6 +1195,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = XA24T5L447;
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/MobileSocialBlogApp",
+				);
 				INFOPLIST_FILE = MobileSocialBlogApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1342,6 +1384,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = XA24T5L447;
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/MobileSocialBlogApp",
+				);
 				INFOPLIST_FILE = MobileSocialBlogApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1365,6 +1413,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = XA24T5L447;
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/MobileSocialBlogApp",
+				);
 				INFOPLIST_FILE = MobileSocialBlogApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (

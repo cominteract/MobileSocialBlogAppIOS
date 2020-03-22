@@ -8,6 +8,7 @@
 
 import UIKit
 
+
 /// FeedDetailsViewController as FeedDetailsView to be updated by the presenter after an implementation, BaseViewController for common methods and properties if ever (extensions etc)
 
 class FeedDetailsViewController : BaseTabComponentViewController, FeedDetailsView, UITableViewDelegate, UITableViewDataSource {
@@ -24,6 +25,7 @@ class FeedDetailsViewController : BaseTabComponentViewController, FeedDetailsVie
     
     @IBOutlet weak var feedDetailsPostButton: UIButton!
     
+   
     
     var replyTo : String?
     

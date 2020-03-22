@@ -29,7 +29,7 @@ class ChatViewController : BaseViewController, ChatView, UITableViewDelegate, UI
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if let sessions = presenter.allSessions(){
+        if let username = Config.getUser(), let userId = presenter.getUserFrom(username: username)?.id, let sessions = presenter.allSessions()?.filter({ $0.userIds != nil && $0.userIds!.contains(userId) }){
             return sessions.count
         }
         return 0

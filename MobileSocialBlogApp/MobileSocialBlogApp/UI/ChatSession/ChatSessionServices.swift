@@ -31,7 +31,7 @@ class ChatSessionServices: NSObject {
     var retrievedChats = false
     var retrievedUsers = false
     var retrievedSessions = false
-    
+    var callAPIManager = CallAPIManager()
     /// authManager used in consuming the authentication api whether mock or from aws to be initialized
     var authManager : AuthManager
     /// initializes with the apiManager used in consuming the api related to data whether mock or from aws and authManager used in consuming the authentication api whether mock or from aws
@@ -44,6 +44,28 @@ class ChatSessionServices: NSObject {
         self.authManager = authManager
     }
  
+    
+    func startCall(callRecords : CallRecords){
+        callAPIManager.addCall(keyval: CallRecords.convertToKeyVal(call: callRecords)) { (err, msg) in
+            
+        }
+    }
+    
+    func retrieveCalls(userId : String){
+        let callsRetrieved = CallsRetrieved()
+        callsRetrieved.retrievedCalls = { [weak self] (call : CallRecords?) in
+            if let call = call, let callerName = call.callerName, let conferenceName = call.conferenceName{
+                self?.delegate?.receivedCallFrom(callRecords: call)
+            }
+        }
+        callsRetrieved.endedCalls = { [weak self] (call : CallRecords?) in
+            if let call = call, let callerName = call.callerName, let conferenceName = call.conferenceName{
+                self?.delegate?.endedCall(callRecords: call)
+            }
+        }
+        callAPIManager.retrieveIncomingCall(userId: userId, callsRetrieved: callsRetrieved)
+    }
+    
     func sendChat(chatMessage : ChatMessages){
         apiManager.addChats(keyval: ChatMessages.convertToKeyVal(chat: chatMessage)) { [weak self] (err, message) in
             self?.delegate?.addedChatMessage()

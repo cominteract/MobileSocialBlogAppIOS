@@ -11,6 +11,8 @@ protocol ChatSessionView: class {
     func addedChatMessageUpdateView()
     func addedChatSessionUpdateView()
     func retrievedAllUpdateView()
+    func receivedCallFromUpdateView(callRecords: CallRecords)
+    func endedCallUpdateView(callRecords: CallRecords)
 }
 
 /// ChatSessionDelegate protocol for delegating implementations from the ChatSessionServices
@@ -18,20 +20,42 @@ protocol ChatSessionDelegate: class{
     func addedChatSession()
     func addedChatMessage()
     func retrievedAll()
+    func receivedCallFrom(callRecords: CallRecords)
+    func endedCall(callRecords: CallRecords)
 }
 
 /// ChatSessionPresenter protocol for implementing the ChatSessionPresenter
 protocol ChatSessionPresenter {
+    func startCall(callRecords: CallRecords)
     func allChats() -> [ChatMessages]?
     func allSessions() -> [ChatSession]?
     func sendChat(chat : ChatMessages)
     func sendSession(chat : ChatSession)
     func retrieveAll()
+    func retrieveCalls(userId : String)
     func getUserFrom(username : String) -> Users?
 }
 
 /// ChatSessionPresenter implementation based on the presenter protocol
 class ChatSessionPresenterImplementation : ChatSessionPresenter, ChatSessionDelegate {
+    
+    func retrieveCalls(userId: String) {
+        service.retrieveCalls(userId: userId)
+    }
+    
+    func startCall(callRecords: CallRecords) {
+        service.startCall(callRecords: callRecords)
+    }
+    
+    func endedCall(callRecords: CallRecords) {
+        view?.endedCallUpdateView(callRecords: callRecords)
+    }
+    
+    func receivedCallFrom(callRecords: CallRecords) {
+        view?.receivedCallFromUpdateView(callRecords: callRecords)
+    }
+    
+    
     func allSessions() -> [ChatSession]? {
         return service.allSessions
     }

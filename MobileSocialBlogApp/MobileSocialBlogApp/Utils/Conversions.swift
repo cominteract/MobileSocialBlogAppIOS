@@ -26,6 +26,12 @@ class ChatSessionConversion{
     var didConvertChatSession : ((ChatSession?) -> Void)?
 }
 
+class CallsRetrieved{
+    var retrievedCalls : ((CallRecords?) -> Void)?
+    var endedCalls : ((CallRecords?) -> Void)?
+    
+}
+
 class Conversions: NSObject {
     
     static func convertToPosts(ref : DatabaseReference, conversion : PostsConversion)
@@ -88,6 +94,30 @@ class Conversions: NSObject {
         }) { (error) in
             print(error.localizedDescription)
         }
+    }
+    
+    static func convertToAllCalls(values : NSDictionary) -> [CallRecords]
+    {
+        var callRecords = [CallRecords]()
+        for key in values.allKeys
+        {
+            if let value = values[key] as? NSDictionary
+            {
+                let callRecord = CallRecords()
+                callRecord.id = value["id"] as? String
+                callRecord.calledId = value["calledId"] as? String
+                callRecord.callerId = value["callerId"] as? String
+                callRecord.calledName = value["calledName"] as? String
+                callRecord.callerName = value["callerName"] as? String
+                callRecord.timestampEnded = value["timestampEnded"] as? String
+                callRecord.timestampStarted = value["timestampStarted"] as? String
+                callRecord.conferenceName = value["conferenceName"] as? String
+                callRecord.callstate = value["callstate"] as? String
+                callRecord.endedId = value["endedId"] as? String
+                callRecords.append(callRecord)
+            }
+        }
+        return callRecords
     }
     
     static func convertToAllPosts(values : NSDictionary) -> [Posts]

@@ -9,6 +9,10 @@
 import UIKit
 
 class Constants: NSObject {
+    static let CALLSTARTED = "CallStarted"
+    static let CALLENDED = "CallEnded"
+    static let CALLONGOING = "CallOngoing"
+    static let calls = "calls"
     static let users = "users"
     static let posts = "posts"
     static let chats = "chats"

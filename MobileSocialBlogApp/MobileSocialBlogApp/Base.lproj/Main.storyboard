@@ -363,7 +363,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="YAc-zJ-Tzg">
-                                <rect key="frame" x="16" y="745" width="295" height="30"/>
+                                <rect key="frame" x="16" y="745" width="248" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
@@ -377,29 +377,49 @@
                                     <action selector="sendChatClicked:" destination="8Fw-1K-uw3" eventType="touchUpInside" id="Wqs-jm-HPv"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ful-3t-qNX">
+                                <rect key="frame" x="277" y="748" width="30" height="30"/>
+                                <state key="normal" title="Call"/>
+                                <connections>
+                                    <action selector="startCall:" destination="8Fw-1K-uw3" eventType="touchUpInside" id="A4d-hW-K0F"/>
+                                </connections>
+                            </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FtC-rx-0vR" customClass="JitsiMeetView">
+                                <rect key="frame" x="0.0" y="60" width="375" height="670"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="FtC-rx-0vR" firstAttribute="leading" secondItem="z68-cs-bNO" secondAttribute="leading" id="0if-kH-HNz"/>
                             <constraint firstItem="7Q7-sl-DTt" firstAttribute="top" secondItem="z68-cs-bNO" secondAttribute="top" constant="4" id="1rm-HU-fpj"/>
                             <constraint firstItem="z68-cs-bNO" firstAttribute="trailing" secondItem="I5e-F0-fLW" secondAttribute="trailing" constant="16" id="8BT-g3-Hys"/>
+                            <constraint firstItem="ful-3t-qNX" firstAttribute="leading" secondItem="YAc-zJ-Tzg" secondAttribute="trailing" constant="13" id="9JM-UF-uI7"/>
                             <constraint firstItem="7Q7-sl-DTt" firstAttribute="leading" secondItem="z68-cs-bNO" secondAttribute="leading" id="FUs-YX-aV7"/>
                             <constraint firstItem="z68-cs-bNO" firstAttribute="trailing" secondItem="7Q7-sl-DTt" secondAttribute="trailing" id="G0D-BE-qpw"/>
+                            <constraint firstItem="FtC-rx-0vR" firstAttribute="top" secondItem="z68-cs-bNO" secondAttribute="top" constant="16" id="LoP-r4-UTf"/>
+                            <constraint firstItem="z68-cs-bNO" firstAttribute="trailing" secondItem="FtC-rx-0vR" secondAttribute="trailing" id="PKm-80-Tb1"/>
                             <constraint firstItem="YAc-zJ-Tzg" firstAttribute="top" secondItem="7Q7-sl-DTt" secondAttribute="bottom" constant="5" id="S5y-nt-PNw"/>
+                            <constraint firstItem="I5e-F0-fLW" firstAttribute="leading" secondItem="ful-3t-qNX" secondAttribute="trailing" constant="16" id="TSR-ck-Okf"/>
                             <constraint firstItem="YAc-zJ-Tzg" firstAttribute="leading" secondItem="z68-cs-bNO" secondAttribute="leading" constant="16" id="UPO-c7-hdF"/>
                             <constraint firstItem="z68-cs-bNO" firstAttribute="bottom" secondItem="I5e-F0-fLW" secondAttribute="bottom" constant="1" id="URi-lE-Lrx"/>
-                            <constraint firstItem="I5e-F0-fLW" firstAttribute="leading" secondItem="YAc-zJ-Tzg" secondAttribute="trailing" constant="12" id="bv1-T9-O3p"/>
+                            <constraint firstItem="ful-3t-qNX" firstAttribute="top" secondItem="7Q7-sl-DTt" secondAttribute="bottom" constant="8" id="Y6s-kH-Dd1"/>
                             <constraint firstItem="z68-cs-bNO" firstAttribute="bottom" secondItem="YAc-zJ-Tzg" secondAttribute="bottom" constant="3" id="dii-5B-Wwg"/>
+                            <constraint firstItem="YAc-zJ-Tzg" firstAttribute="top" secondItem="FtC-rx-0vR" secondAttribute="bottom" constant="15" id="za2-j7-Vhx"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="z68-cs-bNO"/>
                     </view>
                     <connections>
+                        <outlet property="callButton" destination="ful-3t-qNX" id="8LW-2I-Y44"/>
                         <outlet property="chatSessionTableView" destination="7Q7-sl-DTt" id="wkI-p4-yMc"/>
                         <outlet property="chatSessionTextField" destination="YAc-zJ-Tzg" id="6YO-Uh-lkp"/>
+                        <outlet property="meetView" destination="FtC-rx-0vR" id="Y5N-PF-0j9"/>
+                        <outlet property="sendButton" destination="I5e-F0-fLW" id="NgT-fV-SLg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jhp-tr-Uek" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4093.5999999999999" y="-0.44977511244377816"/>
+            <point key="canvasLocation" x="4093.5999999999999" y="-0.73891625615763545"/>
         </scene>
         <!--Discover-->
         <scene sceneID="KZ1-mk-cP1">
