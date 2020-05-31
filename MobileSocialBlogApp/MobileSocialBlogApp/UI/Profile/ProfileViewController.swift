@@ -13,10 +13,10 @@ import UIKit
 class ProfileViewController : BaseTabComponentViewController, ProfileView, UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if let count = allPosts?.count, isPost {
+        if let _ = allPosts?.count, isPost {
             return 330
         }
-        else if let count = allUsers?.count, !isPost {
+        else if let _ = allUsers?.count, !isPost {
             return 72
         }
         return 72
@@ -69,6 +69,7 @@ class ProfileViewController : BaseTabComponentViewController, ProfileView, UITab
         }
     }
     
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if !isPost{
             let story = UIStoryboard.init(name: "Main", bundle: nil)
@@ -194,6 +195,11 @@ class ProfileViewController : BaseTabComponentViewController, ProfileView, UITab
             user.lastname = profileLastNameTextField.text
             user.birthday = profileBirthdayTextField.text
             user.location = profileLocationTextField.text
+            if let first = profileFirstNameTextField.text,
+                let last = profileLastNameTextField.text{
+                user.fullname = "\(first) \(last)"
+            }
+            
             profileFirstNameLabel.text = user.firstname
             profileLastNameLabel.text = user.lastname
             profileBirthdayLabel.text = user.birthday

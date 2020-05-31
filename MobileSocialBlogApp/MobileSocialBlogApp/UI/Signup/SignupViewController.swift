@@ -38,7 +38,11 @@ class SignupViewController : BaseViewController, SignupView {
     @IBAction func loginClicked(_ sender: Any) {
         if let username = loginUsernameTextField.text, let password = loginPasswordTextField.text, presenter.usernameExists(username: username), presenter.passwordCorrect(username: username, password: password){
             Config.updateUser(value: username)
+            
             user = presenter.getUserFrom(username: username)
+            if let userId = user?.id{
+                Config.updateUserId(value: userId)
+            }
             
             if let online = user?.online, !online, (user?.birthday == nil || user?.photoUrl == Constants.defaultuserurl || user?.location == nil)
             {
@@ -85,6 +89,9 @@ class SignupViewController : BaseViewController, SignupView {
             user.password = signupPasswordTextField.text
             if let username = signupUsernameTextField.text{
                 Config.updateUser(value: username)
+                if let userId = user.id{
+                    Config.updateUserId(value: userId)
+                }
             }
             presenter.signupUser(user: user)
         }

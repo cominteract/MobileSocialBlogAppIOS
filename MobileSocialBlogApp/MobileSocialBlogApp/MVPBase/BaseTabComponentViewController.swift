@@ -16,6 +16,7 @@ class BaseTabComponentViewController: BaseViewController {
         let alertController = UIAlertController(title: "", message: "", preferredStyle: .actionSheet)
         let action = UIAlertAction(title: "Logout", style: .default) { [weak self] _ in
             Config.updateUser(value: "")
+            Config.updateUserId(value: "")
             Config.updateRefreshFeed(value: false)
             Config.updateRefreshDiscover(value: false)
             Config.updateRefreshChat(value: false)

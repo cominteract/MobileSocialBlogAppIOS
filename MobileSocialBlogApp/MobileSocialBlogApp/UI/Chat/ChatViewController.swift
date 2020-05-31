@@ -28,8 +28,15 @@ class ChatViewController : BaseViewController, ChatView, UITableViewDelegate, UI
         return 80
     }
     
+    func allSessions() -> [ChatSession]?{
+        if let username = Config.getUser(), let userId = presenter.getUserFrom(username: username)?.id{
+            return presenter.allSessions()?.filter({ $0.userIds != nil && $0.userIds!.contains(userId) })
+        }
+        return nil
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if let username = Config.getUser(), let userId = presenter.getUserFrom(username: username)?.id, let sessions = presenter.allSessions()?.filter({ $0.userIds != nil && $0.userIds!.contains(userId) }){
+        if let sessions = allSessions() {
             return sessions.count
         }
         return 0
@@ -39,8 +46,8 @@ class ChatViewController : BaseViewController, ChatView, UITableViewDelegate, UI
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "ChatFriendTableViewCell") as! ChatFriendTableViewCell
-        cell.chatFriendTimestampLabel.text = presenter.allSessions()?[indexPath.row].timestamp?.toDate()?.fromNow()
-        cell.chatFriendUserLabel.text = presenter.allSessions()?[indexPath.row].author
+        cell.chatFriendTimestampLabel.text = allSessions()?[indexPath.row].timestamp?.toDate()?.fromNow()
+        cell.chatFriendUserLabel.text = allSessions()?[indexPath.row].author
     
         cell.chatFriendUserLabel.addTapGesture(selector: #selector(ChatViewController.viewProfile(_:)), target: self)
         cell.chatFriendUserLabel.tag = indexPath.row
@@ -50,8 +57,8 @@ class ChatViewController : BaseViewController, ChatView, UITableViewDelegate, UI
         
         cell.addTapGesture(selector: #selector(ChatViewController.viewSession(_:)), target: self)
         cell.tag = indexPath.row
-        cell.chatFriendMessageLabel.text = presenter.allSessions()?[indexPath.row].message
-        if let username = presenter.allSessions()?[indexPath.row].author, let user = presenter.getUserFrom(username: username), let link = user.photoUrl{
+        cell.chatFriendMessageLabel.text = allSessions()?[indexPath.row].message
+        if let username = allSessions()?[indexPath.row].author, let user = presenter.getUserFrom(username: username), let link = user.photoUrl{
             cell.chatFriendImageView.downloadedFrom(link: link)
             cell.chatFriendOnlineButton.setTitle("Online", for: .normal)
             if user.online == nil || user.online == false{
@@ -76,7 +83,7 @@ class ChatViewController : BaseViewController, ChatView, UITableViewDelegate, UI
 
     
     @IBAction func viewSession(_ sender: Any) {
-        if let recog = sender as? UITapGestureRecognizer, let cell = recog.view as? UITableViewCell, let userIds = presenter.allSessions()?[cell.tag].userIds, let currentUser = Config.getUser(){
+        if let recog = sender as? UITapGestureRecognizer, let cell = recog.view as? UITableViewCell, let userIds = allSessions()?[cell.tag].userIds, let currentUser = Config.getUser(){
             
             
             let story = UIStoryboard.init(name: "Main", bundle: nil)

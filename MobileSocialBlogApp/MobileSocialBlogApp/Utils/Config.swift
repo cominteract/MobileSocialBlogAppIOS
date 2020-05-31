@@ -10,6 +10,7 @@ import UIKit
 
 class Config: NSObject {
     public static let username_key = "username"
+    public static let userid_key = "userid"
     public static let ref_feed_key = "reffeed"
     public static let ref_chat_key = "refchat"
     public static let ref_prof_key = "refprof"
@@ -34,6 +35,28 @@ class Config: NSObject {
         return defaults.string(forKey: username_key)
     }
     
+    
+    /// updates the new user id
+    ///
+    /// - Parameters:
+    ///   - value: new value to update as String
+    ///   - key: the identifier from the Keys as String
+    static func updateUserId(value : String)
+    {
+        let defaults = UserDefaults.standard
+        defaults.set(value, forKey: userid_key)
+    }
+    
+    /// returns the userid when saved
+    ///
+    /// - Returns: userid as String after saving
+    static func getUserId() -> String?
+    {
+        let defaults = UserDefaults.standard
+        return defaults.string(forKey: userid_key)
+    }
+    
+ 
     static func updateRefreshFeed(value : Bool)
     {
         let defaults = UserDefaults.standard

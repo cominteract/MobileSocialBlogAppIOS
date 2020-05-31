@@ -101,6 +101,14 @@ class ChatSessionViewController : BaseTabComponentViewController, ChatSessionVie
         return presenter.allChats()?.filter({ ($0.userId == user?.id && $0.replyTo == chatId) || ($0.userId == chatId && $0.replyTo == user?.id)})
     }
     
+    func chatSessions() -> [ChatSession]?
+    {
+        if let userId = user?.id, let chatId = chatId{
+            return presenter.allSessions()?.filter({ $0.userIds != nil && $0.userIds!.contains(userId) && $0.userIds!.contains(chatId) })
+        }
+        return nil
+    }
+    
     /// presenter as ChatSessionPresenter injected automatically to call implementations
     var presenter: ChatSessionPresenter!
     
@@ -123,8 +131,8 @@ class ChatSessionViewController : BaseTabComponentViewController, ChatSessionVie
         presenter.sendChat(chat: chat)
         var session = ChatSession()
         if let userId = user?.id, let selectedId = chatId{
-            if let sessions = presenter.allSessions(), sessions.filter({ $0.userIds != nil && $0.userIds!.contains(userId) && $0.userIds!.contains(selectedId) }).count > 0{
-                session = sessions.filter({ $0.userIds != nil && $0.userIds!.contains(userId) && $0.userIds!.contains(selectedId) })[0]
+            if let sessions = chatSessions(), sessions.count > 0{
+                session = sessions.first!
             }
             else{
                 session.id = Constants.randomString(length: 22)
